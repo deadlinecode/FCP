@@ -1,0 +1,271 @@
+// ##############################
+// #########  Config  #########
+// ##############################
+
+$boxShadow: rgba(0, 0, 0, 0.2) 0px 3px 8px;
+$borderRadius: 8px;
+$defaultGap: 10px;
+
+$ttf: cubic-bezier(0.75, -0.5, 0, 1.75);
+$ttf_begin: cubic-bezier(0.75, -0.5, 0, 1);
+$ttf_end: cubic-bezier(0.5, 0, 0, 1.5);
+
+$themes: (
+  default: (
+    // Main Colors
+    primary: #0058fd,
+    secondary: #363661,
+    background: #03032e,
+    text: #e1e1ef,
+    textOnPrimary: black,
+    // General Colors
+    danger: #ff3131,
+    warning: #ed6f00,
+    success: #00a28e,
+    info: #867df3,
+  ),
+  light: (
+    // Main Colors
+    primary: #0058fd,
+    secondary: #e1e1ef,
+    background: white,
+    text: #363661,
+    textOnPrimary: white,
+    // General Colors
+    danger: #ff3131,
+    warning: #ed6f00,
+    success: #00a28e,
+    info: #867df3,
+  ),
+);
+
+// ##############################
+// #########  INTERNAL  #########
+// ##############################
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    body.mxui_theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}
+
+@mixin pulse() {
+  animation: Pulse 0.1s ease-in-out forwards;
+}
+
+@keyframes Pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+#root {
+  overflow-y: auto;
+  overflow-x: hidden;
+  @include themed {
+    background-color: t("background");
+  }
+}
+
+svg {
+  @include themed {
+    stroke: t("text");
+  }
+}
+
+* {
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: Nunito;
+  font-weight: 400;
+  @include themed {
+    color: t("text");
+    &::-webkit-scrollbar {
+      width: 16px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: transparent;
+      padding: 5px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: t("secondary");
+      border-radius: 9999px;
+      border: 4px solid transparent;
+      background-clip: padding-box;
+      transition: all 0.2s;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: lighten(t("secondary"), 10%);
+      border-radius: 9999px;
+      border: 4px solid transparent;
+      background-clip: padding-box;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-ExtraLight.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-ExtraLightItalic.ttf")
+    format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-Light.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-LightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-Regular.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-Italic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-Medium.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-MediumItalic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-SemiBold.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-Bold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-BoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-ExtraBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-Black.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/nunito/Nunito-BlackItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}

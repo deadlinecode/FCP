@@ -1,0 +1,7 @@
+dist
+release
+node_modules
+temp
+_config.json
+config.json
+yarn-error.log

@@ -1,0 +1,93 @@
+@import "../global";
+
+.MxUI_Toggle_Component {
+  display: inline;
+  &.type_checkbox {
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    padding-top: 1px;
+    padding-left: 1px;
+    svg {
+      opacity: 0;
+      transition: 0.1s ease-in-out;
+    }
+    @include themed {
+      border: 2px solid t("secondary");
+      &:hover {
+        border-color: t("primary");
+        svg {
+          opacity: 0.5;
+        }
+      }
+      &.checked {
+        border-color: t("primary");
+        svg {
+          @include pulse;
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &.type_toggle {
+    $width: 50px;
+    $height: 25px;
+    $padding: 4px;
+    $transition: 0.25s ease-in-out;
+    .MxUI_Toggle_Component__Switch {
+      position: relative;
+      display: inline-block;
+      width: $width;
+      height: $height;
+      input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+    }
+    .MxUI_Toggle_Component__Slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      -webkit-transition: $transition;
+      transition: $transition;
+      border-radius: 34px;
+      @include themed {
+        background-color: t("secondary");
+      }
+      &:before {
+        position: absolute;
+        content: "";
+        height: $height - $padding * 2;
+        width: $height - $padding * 2;
+        left: $padding;
+        bottom: $padding;
+        @include themed {
+          background-color: t("background");
+        }
+        -webkit-transition: $transition;
+        transition: $transition;
+        border-radius: 50%;
+      }
+    }
+    input:checked + .MxUI_Toggle_Component__Slider {
+      @include themed {
+        background-color: t("primary");
+      }
+      &:before {
+        $translate: $width - ($height - $padding * 2) - $padding * 2;
+        -webkit-transform: translateX($translate);
+        -ms-transform: translateX($translate);
+        transform: translateX($translate);
+      }
+    }
+  }
+}

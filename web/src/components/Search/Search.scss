@@ -1,0 +1,46 @@
+@import "../global";
+
+.MxUI_Search_Component {
+  position: relative;
+  .Spinner {
+    animation: Spin 0.5s linear infinite;
+  }
+  &__Recommendations {
+    $transitionSpeed: 0.15s;
+    position: absolute;
+    top: calc(100% + 10px);
+    transition: $transitionSpeed ease-in-out,
+      visibility 0s linear $transitionSpeed;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    &.show {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      transition: $transitionSpeed ease-in-out;
+    }
+    &__Item {
+      font-size: 15px;
+      height: 35px;
+      padding: 0 17px;
+      transition: 0.1s ease-in-out;
+      font-weight: 200;
+      @include themed {
+        border-bottom: 1px solid rgba($color: t("text"), $alpha: 0.1);
+        &:hover {
+          background-color: t("primary");
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+
+@keyframes Spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

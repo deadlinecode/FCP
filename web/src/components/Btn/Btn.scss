@@ -1,0 +1,105 @@
+@import "../global";
+
+@mixin hollow {
+  @include themed {
+    background-color: transparent;
+    color: t("primary");
+  }
+}
+
+@mixin filled {
+  font-weight: initial;
+  @include themed {
+    color: t("textOnPrimary");
+  }
+}
+
+.MxUI_Btn_Component {
+  border-radius: $borderRadius;
+  padding: 5px 25px;
+  height: 33px;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: 0.1s ease-in-out, width 0.2s ease-in-out;
+  outline: none !important;
+  @include filled;
+  @include themed {
+    background-color: t("primary");
+    border: 2px solid t("primary");
+  }
+  &__WidthTransitionHelper {
+    width: 100vw;
+  }
+  &:hover,
+  &:focus {
+    @include hollow;
+    transform: scale(1.05);
+    box-shadow: $boxShadow;
+  }
+  $types: "Secondary", "Danger", "Warning", "Success";
+  @each $type in $types {
+    &.type_#{$type} {
+      @include themed {
+        background-color: t(to-lower-case($type));
+        border-color: t(to-lower-case($type));
+        &:hover,
+        &:focus {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  &.expand {
+    width: 100%;
+  }
+  &.invert {
+    @include hollow;
+    &:hover,
+    &:focus {
+      @include filled;
+      transform: scale(1.1);
+      box-shadow: $boxShadow;
+    }
+  }
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  &.loading &__Content {
+    opacity: 0;
+  }
+  &.loading.loadingLabel {
+    padding-left: 70px;
+  }
+  &.loading.loadingLabel &__Content {
+    opacity: 1;
+  }
+  &.center {
+    margin: 0 auto;
+  }
+  &__Loader {
+    position: absolute;
+    left: 15px;
+    animation: fadeIn 0.2s ease-in-out forwards;
+  }
+  &__Content {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s ease-in-out;
+    &__Icon {
+      width: max-content;
+      height: max-content;
+      &.Position_right {
+        margin-left: 10px;
+      }
+      &.Position_left {
+        margin-right: 10px;
+      }
+    }
+  }
+}

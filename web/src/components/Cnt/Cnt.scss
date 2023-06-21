@@ -1,0 +1,119 @@
+@import "../global";
+
+.MxUI_Cnt_Component {
+  &.centerV,
+  &.centerH {
+    display: flex;
+    gap: $defaultGap;
+  }
+  &.centerV {
+    align-items: center;
+  }
+  &.centerH {
+    justify-content: center;
+  }
+  &.fullS,
+  &.fullW {
+    width: 100%;
+  }
+  &.fullS,
+  &.fullH {
+    height: 100%;
+  }
+  &.fullSS,
+  &.fullSW {
+    width: 100vw;
+  }
+  &.fullSS,
+  &.fullSH {
+    height: 100vh;
+  }
+  $types: "primary", "secondary", "background";
+  @each $type in $types {
+    &.type_#{$type} {
+      @include themed {
+        background-color: t($type);
+      }
+    }
+  }
+  &.borderR {
+    border-radius: $borderRadius;
+    overflow: hidden;
+  }
+  &.caged {
+    position: relative;
+  }
+  &.pointer {
+    cursor: pointer;
+  }
+  &.silent {
+    opacity: 0.5;
+  }
+  &.inline {
+    display: inline;
+  }
+  &.zeroGap {
+    gap: 2px !important;
+    .MxUI_Btn_Component {
+      height: 40px;
+    }
+    & > * {
+      border-radius: 0;
+      .MxUI_Inp_Component,
+      &.MxUI_Inp_Component {
+        border-radius: 0;
+        input {
+          border-radius: 0;
+        }
+      }
+      .MxUI_Inp_Component,
+      &.MxUI_Inp_Component {
+        input {
+          @include themed {
+            &:focus {
+              border-left-color: transparent;
+              border-right-color: transparent;
+            }
+          }
+        }
+      }
+      &:first-child {
+        border-radius: $borderRadius 0 0 $borderRadius;
+        .MxUI_Inp_Component,
+        &.MxUI_Inp_Component {
+          border-radius: $borderRadius 0 0 $borderRadius;
+          input {
+            border-radius: $borderRadius 0 0 $borderRadius;
+          }
+        }
+        .MxUI_Inp_Component input {
+          @include themed {
+            &:focus {
+              border-left-color: t("primary");
+            }
+          }
+        }
+      }
+      &:last-child {
+        border-radius: 0 $borderRadius $borderRadius 0;
+        .MxUI_Inp_Component,
+        &.MxUI_Inp_Component {
+          border-radius: 0 $borderRadius $borderRadius 0;
+          input {
+            border-radius: 0 $borderRadius $borderRadius 0;
+          }
+        }
+        .MxUI_Inp_Component,
+        &.MxUI_Inp_Component {
+          input {
+            @include themed {
+              &:focus {
+                border-right-color: t("primary");
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

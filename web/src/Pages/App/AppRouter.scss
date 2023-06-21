@@ -1,0 +1,50 @@
+@import "../../components/global";
+
+.App {
+  display: flex;
+  flex-direction: column;
+  .AppHeader {
+    height: 60px;
+    min-height: 60px;
+    padding: 0 20px;
+    @include themed {
+      border-bottom: 1px solid rgba($color: t("text"), $alpha: 0.2);
+    }
+  }
+
+  main {
+    height: calc(100% - 60px);
+    width: 100%;
+  }
+
+  .AlignRight {
+    margin-left: auto;
+  }
+  .CenterText {
+    text-align: center;
+  }
+  .Ghost {
+    visibility: hidden;
+  }
+
+  .Console {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: monospace;
+    background-color: black;
+    border: 1px solid rgba($color: white, $alpha: 0.3);
+    border-radius: $borderRadius;
+    overflow: hidden;
+    padding-left: 10px;
+    input {
+      outline: none !important;
+      border: none;
+      background-color: black;
+      color: white;
+      padding: 8px 10px;
+      font-family: monospace;
+      width: 40vw;
+    }
+  }
+}

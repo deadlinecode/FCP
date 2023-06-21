@@ -1,0 +1,211 @@
+@import "../global";
+
+// Config
+$circleFactor: 0.1;
+
+$smSize: 25px;
+$mdSize: 25px;
+$lgSize: 25px;
+
+// Styles
+$translateX: calc($mdSize / 2);
+$pseudoSize: $translateX - ($mdSize * $circleFactor);
+.MxUI_Loader_Component {
+  height: $mdSize;
+  width: $mdSize;
+  position: relative;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.2);
+  transition: 0.4s ease-in-out, visibility 0s linear 0.4s;
+  &.fullCover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include themed {
+      background-color: t("background");
+    }
+  }
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transition: 0.4s ease-in-out;
+    transform: none;
+  }
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: $pseudoSize;
+    height: $pseudoSize;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 50%;
+    -webkit-animation: loader-4-1 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    animation: loader-4-1 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    @include themed {
+      background: t("primary");
+    }
+  }
+  span {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: $mdSize;
+    width: $mdSize;
+    -webkit-animation: loader-4-2 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    animation: loader-4-2 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      height: $pseudoSize;
+      width: $pseudoSize;
+      border-radius: 50%;
+      -webkit-animation: loader-4-3 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+      animation: loader-4-3 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+      @include themed {
+        background: t("primary");
+      }
+    }
+    &::after {
+      -webkit-animation: loader-4-4 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+      animation: loader-4-4 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    }
+  }
+  $types: "primary", "secondary", "text", "background", "textOnPrimary";
+  @each $type in $types {
+    &.type_#{$type} {
+      &::after,
+      span::after,
+      span::before {
+        @include themed {
+          background-color: t($type);
+        }
+      }
+    }
+  }
+}
+
+@-webkit-keyframes loader-4-1 {
+  0% {
+    -webkit-transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes loader-4-1 {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes loader-4-2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-4-2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes loader-4-3 {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    -webkit-transform: translate3d(-$translateX, 0, 0) scale(0.5);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes loader-4-3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-$translateX, 0, 0) scale(0.5);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@-webkit-keyframes loader-4-4 {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    -webkit-transform: translate3d($translateX, 0, 0) scale(0.5);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes loader-4-4 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d($translateX, 0, 0) scale(0.5);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
