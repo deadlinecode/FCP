@@ -74,9 +74,8 @@ export default (props: { serverStatus: ServerStatus }) => {
         (x) =>
           x instanceof File &&
           x.type === "application/java-archive" &&
-          x.name.endsWith(".jar")
-        //  &&
-        // !mods.includes(x.name.split(".").slice(0, -1).join("."))
+          x.name.endsWith(".jar") &&
+          !mods.includes(x.name.split(".").slice(0, -1).join("."))
       );
       if (!files.length) return;
       if (_filesToUpload.length)
