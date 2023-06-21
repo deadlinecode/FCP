@@ -5,7 +5,7 @@
 You need to have a forge server already setup and port 80 needs to be free (or 443 if you want to use ssl).
 <br />
 <br />
-Grab the linux or windows binary from the releases page.
+Grab the linux or windows binary from the [releases page](https://github.com/deadlinecode/FCP/releases).
 <br />
 Create a `config.json` file in the same directory as the binary.
 <br />
